@@ -1,0 +1,14 @@
+// outputに任意のパスを指定すると「[vite] Internal server error: exports is not defined」のエラーが発生するため、
+// node_modules/@prisma-＊に出力するようにする
+// cf. https://github.com/prisma/prisma/discussions/20200
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+  output          = "../node_modules/@prisma-app/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["auth", "public"]
+}
